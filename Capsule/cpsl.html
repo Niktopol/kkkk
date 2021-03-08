@@ -1,0 +1,182 @@
+<html>
+<head>
+	<link link rel="icon" href="favicon.ico" type="image/x-icon">
+	<meta charset="utf-8">
+	<title>Time capsule</title>
+</head>
+<body>
+	<div class="cont">
+	<header>
+		<p class = "sch">School №1788</p>
+		<div class="hdl">
+			<div class="printer2" id="prnt"><div class="printer" id="blink"></div></div>
+			<p class = "yr" id="yer">2021</p>
+		</div>
+	</header>
+	<div class="overcase">
+		<div class="button"><p>Открыть</p></div>
+	</div>
+	<div class="timer"><p id = "time">##:##:##</p><p id = "date">####</p></div>
+</div>
+</body>
+<script>
+	var p = document.getElementById("prnt");
+	var yer = document.getElementById("yer");
+	var b = document.getElementById("blink");
+	var count = 0;
+	var w = 336;
+	var trn = 0;
+	var y;
+	var x;
+	var tm = document.getElementById("time");
+	var dt = document.getElementById("date");
+	function moveA (){
+		if (count == 7){
+			clearInterval(x);
+			count = 0
+		}else{
+			count += 1;
+			trn += 42;
+			w -= 42;
+			p.style.transform = "translate(" + trn + "px)";
+			p.style.width = w + "px";
+		}
+	}
+	function moveB (){
+		if (count == 7){
+			clearInterval(y);
+			yer.innerHTML = "70 лет";
+			w = 336;
+			trn = 0;
+			count = 0
+		}else{
+			count += 1;
+			trn -= 42;
+			w += 42;
+			p.style.transform = "translate(" + trn + "px)";
+			p.style.width = w + "px";
+		}
+	}
+	function setTime (){
+		var z = new Date();
+		tm.innerHTML = z.getSeconds();
+	}
+	setTimeout(function(){x = setInterval(moveA, 125)}, 150);
+	setTimeout(function(){y = setInterval(moveB, 125)}, 1300);
+	setTimeout(function(){x = setInterval(moveA, 125)}, 2300);
+	setTimeout(function(){b.style.animationName = "blink"}, 3250);
+
+	setInterval(function(){var z = new Date(); var hour = z.getHours(); var min = z.getMinutes(); var sec = z.getSeconds(); if (hour < 10){hour = "0" + hour}; if (min < 10){min = "0" + min}; if (sec < 10){sec = "0" + sec}; dt.innerHTML = z.getFullYear(); tm.innerHTML = hour + ":" + min + ":" + sec
+}, 1000);
+</script>
+<style>
+body{
+	margin: 0;
+	padding: 0;
+	font-family: Courier, monospace;
+	color: #fff;
+	background-color: #000;
+	width: 100%;
+	cursor: default;
+	user-select: none;
+}
+.cont{
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+header{
+	text-align: center;
+	width: 700px;	
+}
+.sch{
+	font-size: 60px;
+	padding: 25px;
+	border: 2px dashed #fff;
+	margin: 60px;
+}
+.yr{
+	font-size: 70px;
+	margin: 0;
+}
+.hdl{
+	margin: auto;
+	width: 336px;
+	margin-bottom: 100px;
+}
+.printer{
+	height: 79px;
+	width: 42px;
+	background-color: white;
+	animation-timing-function: steps(1, end); 
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+.printer2{
+	background-color: black;
+	width: 336px;
+	position: absolute;
+}
+@keyframes blink{
+	0%{background-color: white;}
+	50%{background-color: black;}
+	100%{background-color: white;}
+}
+.overcase{
+	box-sizing: border-box;
+	display: flex;
+	background-image: url(imgg.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 98.25px;
+	width: 122.75px;
+	cursor: pointer;
+	margin: 50px;
+}
+.button:hover{
+	font-size: 21px;
+}
+.button{
+	font-family: Arial, sans-serif;
+	text-align: center;
+	display: flex;
+	color: black;
+	font-size: 20px;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	transition: 0.1s ease-in-out;
+}
+.button p{
+	margin: 0;
+	height: min-content;
+}
+.timer{
+	display: flex;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	flex-direction: row;
+	color: black;
+	background-color: white;
+}
+#time{
+	margin: 10px;
+}
+#date{
+	margin: 10px;
+}
+footer{
+	width: 100%;
+	border-top: 1px solid white;
+	background-color: black;
+	box-sizing: border-box;
+	font-size: 50px;
+	padding: 10px;
+	text-align: center;
+}
+</style>
+</html>
